@@ -7,4 +7,6 @@ spring:
       host: localhost
       port: 27017
       database: blog
+      username: blog
+      password: blog1234
     

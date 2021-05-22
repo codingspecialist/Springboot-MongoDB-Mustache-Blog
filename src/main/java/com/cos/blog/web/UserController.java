@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.domain.user.User;
 import com.cos.blog.domain.user.UserRepository;
+import com.cos.blog.service.UserService;
 import com.cos.blog.web.dto.CMRespDto;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,18 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserRepository userRepository;
+	private final UserService userService;
 	private final HttpSession session;
+	
+	@GetMapping("/user/test1")
+	public CMRespDto<?> mNotEmptyBoards(){
+		return new CMRespDto<>(1, "검색성공", userRepository.mFindNotEmptyBoards());
+	}
+	
+	@GetMapping("/user/test2")
+	public CMRespDto<?> mFindUsername(){
+		return new CMRespDto<>(1, "검색성공", userService.mFindUsername());
+	}
 	
 	@PostMapping("/user")
 	public CMRespDto<?> save(@RequestBody User user){ 
